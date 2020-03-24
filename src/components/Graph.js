@@ -7,12 +7,12 @@ const Graph = ({ data, dimensions, handleNodeClick, handleOutClick }) => {
     <ForceGraph2d
       width={dimensions.width}
       height={dimensions.height}
+      backgroundColor="#FFFFFF"
       d3Force="link"
       graphData={data}
       nodeLabel="name"
       nodeCanvasObject={Draws.CanvasCallback}
       onNodeClick={node => handleNodeClick(node)}
-      linkCanvasObject={Draws.LinkCallback}
       onBackgroundClick={handleOutClick}
     />
   );

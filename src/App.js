@@ -6,12 +6,14 @@ import Helpers from "./helpers/Helpers";
 
 const App = () => {
   const [attrHash, setAttrHash] = useState({});
+  const [nodeHash, setNodeHash] = useState({});
   const [dimensions, setDimensions] = useState({});
   const [data, setData] = useState({ nodes: [], links: [] });
   const [resetData, setResetData] = useState({ nodes: [], links: [] });
   let tempTemperaments = [];
   let tempLinks = [];
   let tempAttrHash = {};
+  let tempNodeHash = {};
 
   const boxRef = useRef();
 
@@ -25,11 +27,13 @@ const App = () => {
           breeds,
           tempTemperaments,
           tempAttrHash,
-          tempLinks
+          tempLinks,
+          tempNodeHash
         )
       )
-      .then(({ temps, hash, breeds, links }) => {
+      .then(({ temps, hash, nodeHash, breeds, links }) => {
         setAttrHash(hash);
+        setNodeHash(nodeHash);
         setData({ nodes: [...breeds, ...temps], links: links });
         setResetData({ nodes: [...breeds, ...temps], links: links });
       });
@@ -45,16 +49,23 @@ const App = () => {
 
   const handleNodeClick = node => {
     if (node.weight) {
-      let children = node.children.map(child => {
+      let collection = nodeHash[node.name];
+      let children = collection.map(child => {
         return { id: child, name: child };
       });
-      let links = node.children.map(child => {
+      let links = collection.map(child => {
         return { source: node.id, target: child };
       });
       setData({ nodes: [...children, node], links: links });
     } else {
-      console.log(node);
-      console.log(attrHash);
+      let collection = attrHash[node.id];
+      let parents = collection.map(parent => {
+        return { id: parent, name: parent, weight: true };
+      });
+      let parentLinks = collection.map(parent => {
+        return { source: node.id, target: parent };
+      });
+      setData({ nodes: [...parents, node], links: parentLinks });
     }
   };
 
@@ -70,8 +81,8 @@ const App = () => {
       </header>
       <div className="second-head">
         <h5>
-          Try draging a node! {<br />} try clicking on a node! {<br />} Try
-          zooming and moving the canvas
+          Try draging a node! {<br />} Try clicking on a node! {<br />} Try
+          zooming and dragging the canvas!
         </h5>
       </div>
       <div style={{ textAlign: "center" }}>

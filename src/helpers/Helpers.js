@@ -2,20 +2,22 @@ const createTemperamentList = (
   breeds,
   tempTemperaments,
   tempAttrHash,
-  tempLinks
+  tempLinks,
+  tempNodeHash
 ) => {
   breeds.forEach(breed => {
     const comparisonArray = formatString(breed.temperament);
     comparisonArray.forEach(temperament => {
       //Set children
-      breed.children
-        ? (breed.children = [...breed.children, temperament])
-        : (breed.children = []);
+      if (!breed.children) breed.children = [];
+      breed.children = [...breed.children, temperament];
 
-      //Set Hash
-      tempAttrHash[breed.id]
-        ? tempAttrHash[breed.id].push(temperament)
-        : (tempAttrHash[breed.id] = []);
+      //Set Hashes
+      if (!tempAttrHash[temperament]) tempAttrHash[temperament] = [];
+      tempAttrHash[temperament].push(breed.name);
+
+      if (!tempNodeHash[breed.name]) tempNodeHash[breed.name] = [];
+      tempNodeHash[breed.name].push(temperament);
 
       //Add links
       if (comparisonArray.includes(temperament)) {
@@ -32,6 +34,7 @@ const createTemperamentList = (
   return {
     temps: tempTemperaments,
     hash: tempAttrHash,
+    nodeHash: tempNodeHash,
     breeds: breeds,
     links: tempLinks
   };
