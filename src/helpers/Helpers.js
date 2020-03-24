@@ -1,19 +1,40 @@
-const createTemperamentList = (breeds, tempTemperaments, tempAttrHash) => {
+const createTemperamentList = (
+  breeds,
+  tempTemperaments,
+  tempAttrHash,
+  tempLinks
+) => {
   breeds.forEach(breed => {
-    formatString(breed.temperament).forEach(temperament => {
+    const comparisonArray = formatString(breed.temperament);
+    comparisonArray.forEach(temperament => {
+      //Set children
       breed.children
         ? (breed.children = [...breed.children, temperament])
         : (breed.children = []);
 
+      //Set Hash
       tempAttrHash[breed.id]
         ? tempAttrHash[breed.id].push(temperament)
         : (tempAttrHash[breed.id] = []);
 
+      //Add links
+      if (comparisonArray.includes(temperament)) {
+        tempLinks.push({ source: breed.id, target: temperament });
+      }
+
+      //Return if already included else add
       if (tempTemperaments.map(temp => temp.id).includes(temperament)) return;
       else tempTemperaments.push({ id: temperament, name: temperament });
     });
+
+    // setData({ ...data, links: tempLinks });
   });
-  return { temps: tempTemperaments, hash: tempAttrHash };
+  return {
+    temps: tempTemperaments,
+    hash: tempAttrHash,
+    breeds: breeds,
+    links: tempLinks
+  };
 };
 
 const formatString = string => {
@@ -23,4 +44,4 @@ const formatString = string => {
     .split(",");
 };
 
-export default { createTemperamentList, formatString };
+export default { createTemperamentList };

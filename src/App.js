@@ -5,12 +5,10 @@ import API from "./services/API";
 import Helpers from "./helpers/Helpers";
 
 const App = () => {
-  const [breeds, setBreeds] = useState([]);
-  const [temperaments, setTemperaments] = useState([]);
-  const [links, setLinks] = useState([]);
   const [attrHash, setAttrHash] = useState({});
   const [dimensions, setDimensions] = useState({});
-  const [tempBreeds, setTempBreeds] = useState([]);
+  const [data, setData] = useState({ nodes: [], links: [] });
+  const [resetData, setResetData] = useState({ nodes: [], links: [] });
   let tempTemperaments = [];
   let tempLinks = [];
   let tempAttrHash = {};
@@ -20,49 +18,37 @@ const App = () => {
   const handleNodes = () => {
     return API.getBreeds()
       .then(breeds => {
-        setTempBreeds([...breeds]);
-        setBreeds(breeds);
         return breeds;
       })
       .then(breeds =>
-        Helpers.createTemperamentList(breeds, tempTemperaments, tempAttrHash)
+        Helpers.createTemperamentList(
+          breeds,
+          tempTemperaments,
+          tempAttrHash,
+          tempLinks
+        )
       )
-      .then(({ temps, hash }) => {
+      .then(({ temps, hash, breeds, links }) => {
         setAttrHash(hash);
-        setTemperaments(temps);
+        setData({ nodes: [...breeds, ...temps], links: links });
+        setResetData({ nodes: [...breeds, ...temps], links: links });
       });
-  };
-
-  const handleLinks = () => {
-    breeds.forEach(breed => {
-      const comparisonArray = Helpers.formatString(breed.temperament);
-      comparisonArray.forEach(temperament => {
-        if (comparisonArray.includes(temperament)) {
-          tempLinks.push({ source: breed.id, target: temperament });
-        }
-      });
-    });
-    setLinks(tempLinks);
   };
 
   useEffect(() => {
-    handleNodes(tempBreeds);
+    handleNodes();
     setDimensions({
       width: boxRef.current.clientWidth,
       height: boxRef.current.clientHeight
     });
   }, []);
 
-  useEffect(() => {
-    handleLinks();
-  }, [breeds]);
-
   const handleNodeClick = node => {
     if (node.weight) {
       let children = node.children.map(child => {
         return { id: child, name: child };
       });
-      setLinks([]);
+      // setLinks([]);
       // setBreeds([node]);
       // setTemperaments(children);
       // setLinks([]);
@@ -73,7 +59,7 @@ const App = () => {
   };
 
   const handleOutClick = () => {
-    setBreeds(tempBreeds);
+    // setBreeds(tempBreeds);
   };
 
   return (
@@ -94,7 +80,7 @@ const App = () => {
             handleOutClick={handleOutClick}
             handleNodeClick={handleNodeClick}
             dimensions={dimensions}
-            data={{ nodes: [...breeds, ...temperaments], links: links }}
+            data={data}
           />
         </div>
       </div>
