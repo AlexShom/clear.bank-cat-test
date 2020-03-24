@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
 import Graph from "./components/Graph";
 import API from "./services/API";
@@ -9,9 +9,12 @@ const App = () => {
   const [temperaments, setTemperaments] = useState([]);
   const [links, setLinks] = useState([]);
   const [attrHash, setAttrHash] = useState({});
+  const [dimensions, setDimensions] = useState({});
   let tempTemperaments = [];
   let tempLinks = [];
   let tempAttrHash = {};
+
+  const boxRef = useRef();
 
   const handleNodes = () => {
     API.getBreeds()
@@ -42,6 +45,10 @@ const App = () => {
 
   useEffect(() => {
     handleNodes();
+    setDimensions({
+      width: boxRef.current.clientWidth,
+      height: boxRef.current.clientHeight
+    });
   }, []);
 
   useEffect(() => {
@@ -54,7 +61,14 @@ const App = () => {
         <h1>ClearBank - Cat API</h1>
         <h4 style={{ marginTop: "0px" }}>Created by Alexander Shomalistos</h4>
       </header>
-      <Graph data={{ nodes: [...breeds, ...temperaments], links: links }} />
+      <div style={{ textAlign: "center" }}>
+        <div className="box" ref={boxRef}>
+          <Graph
+            dimensions={dimensions}
+            data={{ nodes: [...breeds, ...temperaments], links: links }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
