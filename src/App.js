@@ -76,14 +76,15 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>ClearBank - Cat API</h1>
+        <h1>ClearBank - Cat breed temperament tool</h1>
         <h4 style={{ marginTop: "0px" }}>Created by Alexander Shomalistos</h4>
       </header>
       <div className="second-head">
-        <h5>
-          Try draging a node! {<br />} Try clicking on a node! {<br />} Try
-          zooming and dragging the canvas!
-        </h5>
+        <h4>
+          Try dragging a node! {<br />} Try clicking on a node! {<br />} Try
+          zooming and dragging the canvas! {<br />}Reset by clicking on the
+          canvas!
+        </h4>
       </div>
       <div style={{ textAlign: "center" }}>
         <div className="box" ref={boxRef}>
