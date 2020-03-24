@@ -9,6 +9,9 @@ const Graph = ({ data }) => {
       nodeLabel="name"
       nodeCanvasObject={CanvasCallback}
       onNodeClick={(node, e) => console.log(node)}
+      linkThreeObject={a => console.log(a)}
+      // linkThreeObjectExtend={a => console.log(a)}
+      // linkPositionUpdate={a => console.log(a)}
     />
   );
 };

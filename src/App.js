@@ -22,7 +22,6 @@ const App = () => {
       .then(breeds =>
         Helpers.createTemperamentList(breeds, tempTemperaments, tempAttrHash)
       )
-      // .then(temps => Helpers.addChildrenToHash(temps))
       .then(({ temps, hash }) => {
         setAttrHash(hash);
         setTemperaments(temps);
