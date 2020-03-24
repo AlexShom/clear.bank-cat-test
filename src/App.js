@@ -48,18 +48,18 @@ const App = () => {
       let children = node.children.map(child => {
         return { id: child, name: child };
       });
-      // setLinks([]);
-      // setBreeds([node]);
-      // setTemperaments(children);
-      // setLinks([]);
-      // setBreeds([node]);
+      let links = node.children.map(child => {
+        return { source: node.id, target: child };
+      });
+      setData({ nodes: [...children, node], links: links });
     } else {
       console.log(node);
+      console.log(attrHash);
     }
   };
 
   const handleOutClick = () => {
-    // setBreeds(tempBreeds);
+    setData(resetData);
   };
 
   return (
