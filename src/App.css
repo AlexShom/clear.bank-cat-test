@@ -17,5 +17,11 @@
   display: inline-block;
   background-color: linen;
   width: 80vw;
-  height: 60vw;
+  height: 60vh;
+}
+
+.second-head {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: cornflowerblue;
 }

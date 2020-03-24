@@ -61,6 +61,12 @@ const App = () => {
         <h1>ClearBank - Cat API</h1>
         <h4 style={{ marginTop: "0px" }}>Created by Alexander Shomalistos</h4>
       </header>
+      <div className="second-head">
+        <h5>
+          Try draging a node! {<br />} try clicking on a node! {<br />} Try
+          zooming and moving the canvas
+        </h5>
+      </div>
       <div style={{ textAlign: "center" }}>
         <div className="box" ref={boxRef}>
           <Graph

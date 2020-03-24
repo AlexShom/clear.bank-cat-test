@@ -10,7 +10,7 @@ const createTemperamentList = (breeds, tempTemperaments, tempAttrHash) => {
         : (tempAttrHash[breed.id] = []);
 
       if (tempTemperaments.map(temp => temp.id).includes(temperament)) return;
-      else tempTemperaments.push({ id: temperament });
+      else tempTemperaments.push({ id: temperament, name: temperament });
     })
   );
   return { temps: tempTemperaments, hash: tempAttrHash };

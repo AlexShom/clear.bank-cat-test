@@ -1,8 +1,8 @@
 // Callback funtion to draw the custom SVG for each graph node
 
-const CanvasCallback = ({ id, name, x, y }, ctx, globalScale) => {
+const CanvasCallback = ({ id, weight, x, y }, ctx, globalScale) => {
   // If node is <breed> draw circle else if node is <temperament> draw text
-  if (name) {
+  if (weight) {
     (() => {
       ctx.fillStyle = "#3684E1";
       ctx.beginPath();
