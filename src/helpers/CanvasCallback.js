@@ -32,4 +32,12 @@ const CanvasCallback = ({ id, weight, x, y }, ctx, globalScale) => {
   }
 };
 
-export default CanvasCallback;
+const LinkCallback = (node, ctx) => {
+  ctx.strokeStyle = "#565656";
+  ctx.beginPath();
+  ctx.moveTo(node.target.x, node.target.y);
+  ctx.lineTo(node.source.x, node.source.y);
+  ctx.stroke();
+};
+
+export default { CanvasCallback, LinkCallback };
