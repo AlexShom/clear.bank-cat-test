@@ -10,6 +10,7 @@ const App = () => {
   const [links, setLinks] = useState([]);
   const [attrHash, setAttrHash] = useState({});
   const [dimensions, setDimensions] = useState({});
+  const [tempBreeds, setTempBreeds] = useState([]);
   let tempTemperaments = [];
   let tempLinks = [];
   let tempAttrHash = {};
@@ -17,8 +18,9 @@ const App = () => {
   const boxRef = useRef();
 
   const handleNodes = () => {
-    API.getBreeds()
+    return API.getBreeds()
       .then(breeds => {
+        setTempBreeds([...breeds]);
         setBreeds(breeds);
         return breeds;
       })
@@ -44,7 +46,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    handleNodes();
+    handleNodes(tempBreeds);
     setDimensions({
       width: boxRef.current.clientWidth,
       height: boxRef.current.clientHeight
@@ -54,6 +56,25 @@ const App = () => {
   useEffect(() => {
     handleLinks();
   }, [breeds]);
+
+  const handleNodeClick = node => {
+    if (node.weight) {
+      let children = node.children.map(child => {
+        return { id: child, name: child };
+      });
+      setLinks([]);
+      // setBreeds([node]);
+      // setTemperaments(children);
+      // setLinks([]);
+      // setBreeds([node]);
+    } else {
+      console.log(node);
+    }
+  };
+
+  const handleOutClick = () => {
+    setBreeds(tempBreeds);
+  };
 
   return (
     <div className="App">
@@ -70,6 +91,8 @@ const App = () => {
       <div style={{ textAlign: "center" }}>
         <div className="box" ref={boxRef}>
           <Graph
+            handleOutClick={handleOutClick}
+            handleNodeClick={handleNodeClick}
             dimensions={dimensions}
             data={{ nodes: [...breeds, ...temperaments], links: links }}
           />

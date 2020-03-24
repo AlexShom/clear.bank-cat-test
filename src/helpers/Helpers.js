@@ -1,5 +1,5 @@
 const createTemperamentList = (breeds, tempTemperaments, tempAttrHash) => {
-  breeds.forEach(breed =>
+  breeds.forEach(breed => {
     formatString(breed.temperament).forEach(temperament => {
       breed.children
         ? (breed.children = [...breed.children, temperament])
@@ -11,8 +11,8 @@ const createTemperamentList = (breeds, tempTemperaments, tempAttrHash) => {
 
       if (tempTemperaments.map(temp => temp.id).includes(temperament)) return;
       else tempTemperaments.push({ id: temperament, name: temperament });
-    })
-  );
+    });
+  });
   return { temps: tempTemperaments, hash: tempAttrHash };
 };
 

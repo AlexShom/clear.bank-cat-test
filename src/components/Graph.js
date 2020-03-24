@@ -2,7 +2,7 @@ import React from "react";
 import ForceGraph2d from "react-force-graph-2d";
 import Draws from "../helpers/CanvasCallback";
 
-const Graph = ({ data, dimensions }) => {
+const Graph = ({ data, dimensions, handleNodeClick, handleOutClick }) => {
   return (
     <ForceGraph2d
       width={dimensions.width}
@@ -11,8 +11,9 @@ const Graph = ({ data, dimensions }) => {
       graphData={data}
       nodeLabel="name"
       nodeCanvasObject={Draws.CanvasCallback}
-      onNodeClick={(node, e) => console.log(node)}
+      onNodeClick={node => handleNodeClick(node)}
       linkCanvasObject={Draws.LinkCallback}
+      onBackgroundClick={handleOutClick}
     />
   );
 };
