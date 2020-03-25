@@ -1,3 +1,5 @@
+//Main processing function handles formatting, manipulation and returns variables ready for state change
+
 const createTemperamentList = (
   breeds,
   tempTemperaments,
@@ -24,8 +26,6 @@ const createTemperamentList = (
       if (tempTemperaments.map(temp => temp.id).includes(temperament)) return;
       else tempTemperaments.push({ id: temperament, name: temperament });
     });
-
-    // setData({ ...data, links: tempLinks });
   });
   return {
     temps: tempTemperaments,
@@ -36,6 +36,7 @@ const createTemperamentList = (
   };
 };
 
+//Helper to take the temperament string and convert it into an array
 const formatString = string => {
   return string
     .replace(/\s/g, "")
@@ -43,4 +44,11 @@ const formatString = string => {
     .split(",");
 };
 
-export default { createTemperamentList };
+//Helper to find a specific breed in out stored list for selection
+const findBreed = (breedID, resetData) => {
+  return resetData.nodes.find(
+    node => node.id === breedID || node.name === breedID
+  );
+};
+
+export default { createTemperamentList, findBreed };

@@ -1,3 +1,7 @@
+//API functions separated out
+
+
+//API key is stored in a react env variable
 const ID = process.env.REACT_APP_CAT_API_ID;
 const configObj = {
   headers: {
@@ -5,6 +9,8 @@ const configObj = {
   }
 };
 
+
+//Handles retrieval from API
 const getBreeds = async () => {
   // return await fetch(
   //   "https://api.thecatapi.com/v1/breeds",

@@ -1,7 +1,6 @@
-// Callback funtion to draw the custom SVG for each graph node
+// Callback funtion to draw the custom SVG text for each graph node (default is a circle) color is varied for temperament vs breed
 
 const CanvasCallback = ({ id, name, weight, x, y }, ctx, globalScale) => {
-  // If node is <breed> draw circle else if node is <temperament> draw text
   if (weight) {
     (() => {
       const label = name;
@@ -45,12 +44,4 @@ const CanvasCallback = ({ id, name, weight, x, y }, ctx, globalScale) => {
   }
 };
 
-const LinkCallback = (node, ctx) => {
-  ctx.strokeStyle = "#C0C0C0";
-  ctx.beginPath();
-  ctx.moveTo(node.target.x, node.target.y);
-  ctx.lineTo(node.source.x, node.source.y);
-  ctx.stroke();
-};
-
-export default { CanvasCallback, LinkCallback };
+export default { CanvasCallback };

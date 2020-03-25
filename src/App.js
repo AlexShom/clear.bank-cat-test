@@ -6,19 +6,28 @@ import Helpers from "./helpers/Helpers";
 import BreedCard from "./components/BreedCard";
 
 const App = () => {
+  //State Hashes to keep track of relationships
   const [attrHash, setAttrHash] = useState({});
   const [nodeHash, setNodeHash] = useState({});
+  //State to keep track of window size for styling
   const [dimensions, setDimensions] = useState({});
+  //State to store selected breed
   const [selected, setSelected] = useState(null);
+  //State to handle chart data storage
   const [data, setData] = useState({ nodes: [], links: [] });
   const [resetData, setResetData] = useState({ nodes: [], links: [] });
+
+  //Temp variables for precessing data, allowing for state change in one action
+  //improves chart performance
   let tempTemperaments = [];
   let tempLinks = [];
   let tempAttrHash = {};
   let tempNodeHash = {};
 
+  //Ref to acess parent div for dimensions
   const boxRef = useRef();
 
+  //Main function for intiating data retrieval/processing
   const handleNodes = () => {
     return API.getBreeds()
       .then(breeds => {
@@ -41,6 +50,7 @@ const App = () => {
       });
   };
 
+  //Hook version of componentDidMount
   useEffect(() => {
     handleNodes();
     setDimensions({
@@ -49,12 +59,7 @@ const App = () => {
     });
   }, []);
 
-  const findBreed = breedID => {
-    return resetData.nodes.find(
-      node => node.id === breedID || node.name === breedID
-    );
-  };
-
+  //Handle chart data manipulation on node click
   const handleNodeClick = node => {
     if (node.weight) {
       let collection = nodeHash[node.name];
@@ -75,14 +80,16 @@ const App = () => {
       });
       setData({ nodes: [...parents, node], links: parentLinks });
     }
-    setSelected(findBreed(node.id));
+    setSelected(Helpers.findBreed(node.id, resetData));
   };
 
+  //Handle chart reset after out click
   const handleOutClick = () => {
     setData(resetData);
     setSelected(null);
   };
 
+  //Render JSX
   return (
     <div className="App">
       <header className="App-header">
