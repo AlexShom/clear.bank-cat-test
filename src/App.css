@@ -14,10 +14,11 @@
 }
 
 .box {
+  border: solid;
   display: inline-block;
   background-color: linen;
-  width: 80vw;
-  height: 60vh;
+  width: 80%;
+  height: 70vh;
 }
 
 .second-head {

@@ -3,11 +3,13 @@ import "./App.css";
 import Graph from "./components/Graph";
 import API from "./services/API";
 import Helpers from "./helpers/Helpers";
+import BreedCard from "./components/BreedCard";
 
 const App = () => {
   const [attrHash, setAttrHash] = useState({});
   const [nodeHash, setNodeHash] = useState({});
   const [dimensions, setDimensions] = useState({});
+  const [selected, setSelected] = useState(null);
   const [data, setData] = useState({ nodes: [], links: [] });
   const [resetData, setResetData] = useState({ nodes: [], links: [] });
   let tempTemperaments = [];
@@ -47,6 +49,12 @@ const App = () => {
     });
   }, []);
 
+  const findBreed = breedID => {
+    return resetData.nodes.find(
+      node => node.id === breedID || node.name === breedID
+    );
+  };
+
   const handleNodeClick = node => {
     if (node.weight) {
       let collection = nodeHash[node.name];
@@ -60,17 +68,19 @@ const App = () => {
     } else {
       let collection = attrHash[node.id];
       let parents = collection.map(parent => {
-        return { id: parent, name: parent, weight: true };
+        return { id: parent, name: parent, weight: 1 };
       });
       let parentLinks = collection.map(parent => {
         return { source: node.id, target: parent };
       });
       setData({ nodes: [...parents, node], links: parentLinks });
     }
+    setSelected(findBreed(node.id));
   };
 
   const handleOutClick = () => {
     setData(resetData);
+    setSelected(null);
   };
 
   return (
@@ -87,13 +97,20 @@ const App = () => {
         </h4>
       </div>
       <div style={{ textAlign: "center" }}>
-        <div className="box" ref={boxRef}>
-          <Graph
-            handleOutClick={handleOutClick}
-            handleNodeClick={handleNodeClick}
-            dimensions={dimensions}
-            data={data}
-          />
+        <div className="row">
+          <div className="column">
+            <div className="box" ref={boxRef}>
+              <Graph
+                handleOutClick={handleOutClick}
+                handleNodeClick={handleNodeClick}
+                dimensions={dimensions}
+                data={data}
+              />
+            </div>
+          </div>
+          <div className="column">
+            <BreedCard selected={selected} />
+          </div>
         </div>
       </div>
     </div>

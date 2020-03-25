@@ -8,10 +8,6 @@ const createTemperamentList = (
   breeds.forEach(breed => {
     const comparisonArray = formatString(breed.temperament);
     comparisonArray.forEach(temperament => {
-      //Set children
-      if (!breed.children) breed.children = [];
-      breed.children = [...breed.children, temperament];
-
       //Set Hashes
       if (!tempAttrHash[temperament]) tempAttrHash[temperament] = [];
       tempAttrHash[temperament].push(breed.name);
