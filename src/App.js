@@ -104,20 +104,14 @@ const App = () => {
         </h4>
       </div>
       <div style={{ textAlign: "center" }}>
-        <div className="row">
-          <div className="column">
-            <div className="box" ref={boxRef}>
-              <Graph
-                handleOutClick={handleOutClick}
-                handleNodeClick={handleNodeClick}
-                dimensions={dimensions}
-                data={data}
-              />
-            </div>
-          </div>
-          <div className="column">
-            <BreedCard selected={selected} />
-          </div>
+        <div className="box" ref={boxRef}>
+          <Graph
+            handleOutClick={handleOutClick}
+            handleNodeClick={handleNodeClick}
+            dimensions={dimensions}
+            data={data}
+          />
+          <BreedCard selected={selected} />
         </div>
       </div>
     </div>

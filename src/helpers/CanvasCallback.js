@@ -1,4 +1,4 @@
-// Callback funtion to draw the custom SVG text for each graph node (default is a circle) color is varied for temperament vs breed
+// Callback funtion to draw the custom text for each graph node (default is a circle) color is varied for temperament vs breed
 
 const CanvasCallback = ({ id, name, weight, x, y }, ctx, globalScale) => {
   if (weight) {
