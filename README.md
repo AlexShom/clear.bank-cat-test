@@ -11,7 +11,9 @@ The application uses React and react-force-graphs-2d. It also uses Jest and enzy
 
 ### Set-up
 
-The API key is stored in a local environment variable so it will not work out of the box if cloned. You will need to input your own developer key for the https://thecatapi.com/ API. It can be done with dotenv in a .env file in the root directory with the key set to REACT_APP_CAT_API_ID=<key>.
+EDIT: for some reason the dev API key isnt even needed for the calls made. So it should work without this first step. But if you have problems add a key in.
+
+The API key is stored in a local environment variable so it will not work out of the box if cloned. You will need to input your own developer key for the https://thecatapi.com/ API. It can be done with dotenv in a .env file in the root directory with the key set to REACT_APP_CAT_API_ID=<key>. Alternatively, it can be placed directly in the API component configObj.
 
 Once this is done you can:
 --run npm install to update node modules
