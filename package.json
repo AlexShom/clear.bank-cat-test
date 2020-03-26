@@ -7,10 +7,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "dotenv": "^8.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-2d": "^1.14.1",
-    "react-force-graph-3d": "^1.14.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
@@ -32,6 +34,18 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ],
+    "coverageReporters": [
+      "text"
     ]
   }
 }
