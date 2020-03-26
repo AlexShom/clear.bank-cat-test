@@ -1,6 +1,6 @@
 ## Welcome
 
-This Single Page Application renders data from the The Cat API breeds endpoint (https://thecatapi.com/) in an interactive force directed graph. It also renders the full breed information when a specific breed (node) is selected on the graph, as well as fetching a random example image of that cat breed.
+This Single Page Application renders data from the The Cat API breeds endpoint (https://thecatapi.com/) in an interactive force directed graph. It shows relationships based on the temperament of each breed. It also renders the full breed information when a specific breed (node) is selected on the graph, as well as fetching a random example image of that cat breed.
 
 ![](images/sc1.png)
 ![](images/sc2.png)
